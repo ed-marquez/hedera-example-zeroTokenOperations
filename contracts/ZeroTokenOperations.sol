@@ -2,7 +2,7 @@
 pragma solidity >=0.5.0 <0.9.0;
 pragma experimental ABIEncoderV2;
 
-import "../hts-precompiles/ExpiryHelper.sol";
+import "./hts-precompiles/ExpiryHelper.sol";
 
 // To alter the behavior of the SolidityPrecompileExample, re-compile this solidity file
 // (you will also need the other files in this directory)
@@ -23,7 +23,7 @@ contract ZeroTokenOperations is ExpiryHelper {
     // the function call.  We are using ContractExecuteTransaction.setPayableAmount() to transfer some Hbar
     // to the contract's account at each step (which means this function must be payable), and then transferring
     // the excess Hbar back to the owner at the end of each step.
-    function step0() external payable returns (int responseCode) {
+    function createHtsToken() external payable returns (int responseCode) {
         require(msg.sender == owner);
 
         IHederaTokenService.TokenKey[]
@@ -61,13 +61,13 @@ contract ZeroTokenOperations is ExpiryHelper {
         owner.transfer(address(this).balance);
     }
 
-    function step1() external returns (int responseCode) {
+    function associateHtsToken() external returns (int responseCode) {
         require(msg.sender == owner);
 
         responseCode = associateToken(aliceAccount, fungibleToken);
     }
 
-    function step2() external returns (int responseCode) {
+    function transferHtsToken() external returns (int responseCode) {
         require(msg.sender == owner);
 
         responseCode = transferToken(
@@ -78,7 +78,7 @@ contract ZeroTokenOperations is ExpiryHelper {
         );
     }
 
-    function step3() external returns (int responseCode) {
+    function mintHtsToken() external returns (int responseCode) {
         require(msg.sender == owner);
 
         uint64 newTotalSupply;
@@ -92,7 +92,7 @@ contract ZeroTokenOperations is ExpiryHelper {
         require(newTotalSupply == 100 + 0);
     }
 
-    function step4() external returns (int responseCode) {
+    function burnHtsToken() external returns (int responseCode) {
         require(msg.sender == owner);
 
         uint64 newTotalSupply;
@@ -106,7 +106,7 @@ contract ZeroTokenOperations is ExpiryHelper {
         require(newTotalSupply == 100 + 0);
     }
 
-    function step5() external returns (int responseCode) {
+    function wipeHtsToken() external returns (int responseCode) {
         require(msg.sender == owner);
 
         responseCode = wipeTokenAccount(

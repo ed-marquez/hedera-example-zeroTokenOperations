@@ -12,14 +12,13 @@ export async function deployContractFcn(bytecode, params, gasLim, client) {
 export async function executeContractFcn(cId, fcnName, gasLim, client) {
 	const contractExecuteTx = new ContractExecuteTransaction().setContractId(cId).setGas(gasLim).setFunction(fcnName);
 	const contractExecuteSubmit = await contractExecuteTx.execute(client);
-	const contractExecuteRx = await contractExecuteSubmit.getReceipt(client);
-	return contractExecuteRx;
+	const contractExecuteRec = await contractExecuteSubmit.getRecord(client);
+	return contractExecuteRec;
 }
 
 export async function executeContractPayableFcn(cId, fcnName, gasLim, client) {
-	// const contractExecuteTx = new ContractExecuteTransaction().setContractId(cId).setGas(gasLim).setFunction(fcnName, params);
-	const contractExecuteTx = new ContractExecuteTransaction().setContractId(cId).setGas(gasLim).setFunction(fcnName).setPayableAmount(new Hbar(90));
+	const contractExecuteTx = new ContractExecuteTransaction().setContractId(cId).setGas(gasLim).setFunction(fcnName).setPayableAmount(new Hbar(20));
 	const contractExecuteSubmit = await contractExecuteTx.execute(client);
-	const contractExecuteRx = await contractExecuteSubmit.getReceipt(client);
-	return contractExecuteRx;
+	const contractExecuteRec = await contractExecuteSubmit.getRecord(client);
+	return contractExecuteRec;
 }
