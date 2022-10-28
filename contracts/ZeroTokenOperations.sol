@@ -2,7 +2,7 @@
 pragma solidity >=0.5.0 <0.9.0;
 pragma experimental ABIEncoderV2;
 
-import "./hts-precompiles/ExpiryHelper.sol";
+import "../hts-precompiles/ExpiryHelper.sol";
 
 // To alter the behavior of the SolidityPrecompileExample, re-compile this solidity file
 // (you will also need the other files in this directory)

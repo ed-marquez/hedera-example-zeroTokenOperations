@@ -16,7 +16,7 @@ client.setDefaultMaxTransactionFee(new Hbar(100));
 async function main() {
 	// STEP 1 ===================================
 	console.log(`\nSTEP 1 ===================================\n`);
-	console.log(`- Creating Hedera accounts, HTS token, and contract...\n`);
+	console.log(`- Creating Hedera accounts, contract, and HTS token...\n`);
 
 	// Accounts
 	const initBalance = new Hbar(10);
@@ -25,7 +25,6 @@ async function main() {
 	console.log(`- Alice's account: https://hashscan.io/#/testnet/account/${aliceId}`);
 
 	// Contract
-	// Import the compiled contract bytecode
 	let gasLim = 4000000;
 	const bytecode = contract.object;
 	const constructorParams = new ContractFunctionParameters().addAddress(operatorId.toSolidityAddress()).addAddress(aliceId.toSolidityAddress());
@@ -43,7 +42,7 @@ async function main() {
 
 	// STEP 2 ===================================
 	console.log(`\nSTEP 2 ===================================\n`);
-	console.log(`- Transfering zero tokens from contract to Alice...\n`);
+	console.log(`- Transferring zero tokens from contract to Alice...\n`);
 
 	const transferFtRec = await contracts.executeContractFcn(contractId, "transferHtsToken", gasLim, client);
 	console.log(`- Contract call for token transfer: ${transferFtRec.receipt.status} \n`);
